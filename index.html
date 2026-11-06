@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a0b2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Чамд нэг урилга байна 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#1a0b2e;--bg2:#3b1450;--bg3:#7a2a5e;--ink:#fff4f7;--soft:#e9c9da;--rose:#ff5c8a;--gold:#ffd27a;--card:rgba(255,255,255,.09);--line:rgba(255,255,255,.2);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--ink);background:radial-gradient(1200px 700px at 20% 0%,var(--bg3),transparent 60%),linear-gradient(160deg,var(--bg1),var(--bg2));background-attachment:fixed;overflow-x:hidden}
+.stars,.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:tw 3s infinite ease-in-out}
+@keyframes tw{50%{opacity:.15}}
+.hearts span{position:absolute;bottom:-40px;animation:up linear forwards;opacity:.7}
+@keyframes up{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+main{position:relative;max-width:560px;margin:0 auto;padding:28px 18px 60px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.card{background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:26px;padding:28px 22px;box-shadow:0 20px 60px rgba(0,0,0,.35);animation:in .6s ease both}
+@keyframes in{from{opacity:0;transform:translateY(18px) scale(.97)}}
+h1{font-size:clamp(26px,7vw,36px);line-height:1.2;margin:0 0 10px;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--rose),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+p{color:var(--soft);line-height:1.6;margin:0 0 18px}
+.step{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600}
+.envelope{font-size:96px;text-align:center;cursor:pointer;animation:bob 2.4s infinite ease-in-out;filter:drop-shadow(0 10px 24px rgba(255,92,138,.5));user-select:none}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-3deg)}}
+.btn{appearance:none;border:0;cursor:pointer;font:inherit;font-weight:800;font-size:17px;padding:15px 26px;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--rose),#ff8e5c);box-shadow:0 10px 28px rgba(255,92,138,.45);transition:transform .15s}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:transparent;border:1px solid var(--line);box-shadow:none;color:var(--soft);font-weight:600;font-size:15px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.center{text-align:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.opt{cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:18px;padding:16px 12px;text-align:center;transition:.2s;color:inherit;font:inherit}
+.opt b{display:block;font-size:15px;margin-top:6px}
+.opt small{color:var(--soft);font-size:12px;line-height:1.4;display:block;margin-top:4px}
+.opt .e{font-size:34px}
+.opt.on{border-color:var(--rose);background:rgba(255,92,138,.22);transform:translateY(-3px);box-shadow:0 8px 24px rgba(255,92,138,.3)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.05);color:inherit;font:inherit;font-size:14px;padding:10px 14px;border-radius:999px;transition:.2s}
+.chip.on{background:var(--gold);color:#3b1450;border-color:var(--gold);font-weight:800}
+label{display:block;font-size:13px;color:var(--gold);margin:4px 0 8px;font-weight:600}
+textarea{width:100%;min-height:80px;border-radius:16px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--ink);font:inherit;padding:12px;margin-bottom:20px;resize:vertical}
+.row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;min-height:64px}
+#no{position:relative}
+#no.run{position:fixed;z-index:20;transition:left .25s,top .25s}
+.sum{background:rgba(0,0,0,.25);border-radius:16px;padding:14px 16px;margin:0 0 18px;line-height:1.8;color:var(--ink);font-size:15px}
+.note{font-size:13px;color:var(--soft);margin-top:14px}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:30}
+#owner{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:40;max-width:min(360px,calc(100vw - 24px));background:rgba(20,8,34,.92);border:1px solid var(--gold);border-radius:18px;padding:12px 14px;font-size:13px;display:none}
+#owner b{color:var(--gold)}
+#owner div{border-top:1px solid var(--line);margin-top:8px;padding-top:8px;line-height:1.5}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+button,.opt,.chip{touch-action:manipulation}
+.btn{min-height:50px}.chip{min-height:44px}
+textarea{font-size:16px}
+main{min-height:100vh;min-height:100dvh}
+@media(max-width:420px){main{padding:16px 12px 40px}.card{padding:22px 16px;border-radius:22px}.grid{gap:10px}.opt{padding:14px 8px}.opt .e{font-size:30px}.opt b{font-size:14px}.opt small{font-size:11.5px}.chip{font-size:13px;padding:10px 12px}.envelope{font-size:80px}.btn{font-size:16px;padding:14px 22px}}
+@media(prefers-reduced-motion:reduce){.hearts span,.envelope,.stars i{animation:none}}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div><div class="hearts" id="hearts"></div>
+<main><div id="app"></div></main>
+<canvas id="cv"></canvas>
+<div id="owner"><b>💌 Түүний хариу</b><span id="olist"> ачаалж байна…</span></div>
+<script>
+const DATES=[
+ {id:'movie',e:'🎬',t:'Кино + попкорн',d:'Хамгийн ар талын эгнээнд'},
+ {id:'tennis',e:'🎾',t:'Теннис',d:'Хэн ялахыг харцгаая 😏'},
+ {id:'billiard',e:'🎱',t:'Биллиард',d:'Ялагдсан нь кофе авна'},
+ {id:'cs',e:'🎮',t:'CS тоглох',d:'Хоёулаа нэг багт, эсвэл эсрэг талд'},
+ {id:'dinner',e:'🍝',t:'Тансаг оройн хоол',d:'Гэрэл бүрэнхий, хоёулаа'},
+ {id:'walk',e:'☕',t:'Кофе + алхалт',d:'Энгийн, гэхдээ чамтай бол онцгой'}
+];
+const TIMES=['12:00','15:00','18:00','20:00'];
+const WD=['Ням','Даваа','Мягмар','Лхагва','Пүрэв','Баасан','Бямба'];
+const S={step:0,date:null,day:null,time:null,wish:'',dodge:0};
+const $=s=>document.querySelector(s),app=$('#app');
+let db=null;
+
+/* background */
+for(let i=0;i<60;i++){const s=document.createElement('i');s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*3}s`;$('#stars').appendChild(s)}
+setInterval(()=>{const h=document.createElement('span');h.textContent=['💗','💖','✨','💕'][Math.random()*4|0];h.style.cssText=`left:${Math.random()*100}%;font-size:${14+Math.random()*22}px;animation-duration:${6+Math.random()*6}s`;$('#hearts').appendChild(h);setTimeout(()=>h.remove(),12500)},700);
+
+function days(){const a=[];for(let i=1;i<=7;i++){const d=new Date();d.setDate(d.getDate()+i);a.push({k:d.toISOString().slice(0,10),l:`${WD[d.getDay()]} · ${d.getMonth()+1}/${d.getDate()}`})}return a}
+const DAYS=days();
+
+function render(){
+ let h='';
+ if(S.step===0){
+  h=`<div class="card center"><div class="envelope" id="env">💌</div>
+  <h1>Чамд нэг <em>нууц урилга</em> ирлээ</h1>
+  <p>Нээхэд чинь нэг л асуулт байгаа. Бэлэн үү?</p>
+  <button class="btn" id="open">Нээх</button></div>`;
+ }else if(S.step===1){
+  h=`<div class="card"><div class="step">1 / 3 · Юу хийх вэ?</div>
+  <h1>Миний бодсон <em>6 санаа</em></h1><p>Аль нь чамд таалагдаж байна?</p>
+  <div class="grid">${DATES.map(o=>`<button class="opt ${S.date===o.id?'on':''}" data-d="${o.id}"><span class="e">${o.e}</span><b>${o.t}</b><small>${o.d}</small></button>`).join('')}</div>
+  <div class="center"><button class="btn" id="next" ${S.date?'':'disabled'}>Үргэлжлүүлэх</button></div></div>`;
+ }else if(S.step===2){
+  h=`<div class="card"><div class="step">2 / 3 · Хэзээ?</div>
+  <h1>Чамд <em>тохирох цаг</em></h1><p>Өдрөө сонго:</p>
+  <div class="chips">${DAYS.map(d=>`<button class="chip ${S.day===d.k?'on':''}" data-day="${d.k}">${d.l}</button>`).join('')}</div>
+  <p>Цагаа сонго:</p>
+  <div class="chips">${TIMES.map(t=>`<button class="chip ${S.time===t?'on':''}" data-t="${t}">${t}</button>`).join('')}</div>
+  <div class="center"><button class="btn ghost" id="back">← Буцах</button> <button class="btn" id="next" ${S.day&&S.time?'':'disabled'}>Үргэлжлүүлэх</button></div></div>`;
+ }else if(S.step===3){
+  const o=DATES.find(x=>x.id===S.date),dl=DAYS.find(x=>x.k===S.day).l;
+  h=`<div class="card center"><div class="step">3 / 3 · Эцсийн асуулт</div>
+  <h1>Надтай <em>болзоонд</em> явах уу? 🥹</h1>
+  <p class="sum">${o.e} ${o.t}<br>📅 ${dl}<br>🕒 ${S.time}</p>
+  <div style="text-align:left"><label>Надад хэлэх үг байна уу? (заавал биш)</label><textarea id="wish" placeholder="Жишээ нь: би бэлэн, гэхдээ цэцэг мартваа 😄">${S.wish}</textarea></div>
+  <div class="row"><button class="btn" id="yes">Тэгье! 💖</button><button class="btn ghost" id="no">Үгүй</button></div>
+  <p class="note" id="hint"></p></div>`;
+ }else{
+  const o=DATES.find(x=>x.id===S.date),dl=DAYS.find(x=>x.k===S.day).l;
+  h=`<div class="card center"><div class="envelope" style="font-size:80px">🥰</div>
+  <h1>Яг л <em>миний хүссэн</em> хариулт!</h1>
+  <p class="sum">${o.e} ${o.t}<br>📅 ${dl}<br>🕒 ${S.time}</p>
+  <p id="saved">${S.saved===false?'Хариуг чинь автоматаар илгээж чадсангүй. Доорх товчоор надад өөрөө илгээгээрэй 💌':'Хариуг чинь хүлээн авлаа. Би аль хэдийн догдолж байна 💗'}</p>
+  ${S.saved===false?'<button class="btn" id="share">Хариугаа илгээх 💌</button>':''}</div>`;
+ }
+ app.innerHTML=h;bind();window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function bind(){
+ const on=(s,f)=>{const e=$(s);if(e)e.onclick=f};
+ on('#env',()=>{S.step=1;render()});on('#open',()=>{S.step=1;render()});
+ on('#next',()=>{S.step++;render()});
+ on('#back',()=>{S.step--;render()});
+ document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{S.date=b.dataset.d;render()});
+ document.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>{S.day=b.dataset.day;render()});
+ document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{S.time=b.dataset.t;render()});
+ const w=$('#wish');if(w)w.oninput=()=>S.wish=w.value;
+ on('#yes',submit);
+ on('#share',share);
+ const no=$('#no');
+ if(no){const run=e=>{e.preventDefault();S.dodge++;no.classList.add('run');const x=Math.random()*(innerWidth-110),y=Math.random()*(innerHeight-60);no.style.left=Math.max(8,x)+'px';no.style.top=Math.max(8,y)+'px';
+  const m=['Хөөе, хаачих гэж байна 😏','Бараг дарлаа, гэхдээ үгүй 😜','Тийм товч байхгүй ээ 🙈','Яагаад үгүй гэж? Бодоод үз 🥺','Сүүлийн боломж… «Тэгье» дар 💖'];
+  $('#hint').textContent=m[Math.min(S.dodge-1,m.length-1)];if(S.dodge>=5)no.textContent='Тэгье'};
+  no.onmouseenter=run;no.ontouchstart=run;no.style.touchAction='none';no.onclick=e=>{if(S.dodge>=5)submit();else run(e)}}
+}
+
+function payload(){const o=DATES.find(x=>x.id===S.date);return{answer:'Тийм',plan:o.t,day:S.day,time:S.time,wish:S.wish||'',createdAt:new Date().toISOString()}}
+const MAIL='dinkedinkish@gmail.com';
+async function submit(){
+ confetti();
+ const p=payload();S.saved=false;
+ try{
+  if(typeof claude!=='undefined'){
+   if(!db)db=await claude.use('db');
+   if(db){await db.collection('answers').doc('r'+Date.now()).set(p);S.saved=true}
+  }else{
+   const r=await fetch('https://formsubmit.co/ajax/'+MAIL,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({_subject:'💌 Тэр «Тэгье» гэлээ!',_template:'table',_captcha:'false',
+     Хариу:p.answer,Юу:p.plan,Өдөр:p.day,Цаг:p.time,Мессеж:p.wish||'(үгүй)'})});
+   const j=await r.json();S.saved=(j.success===true||j.success==='true');
+  }
+ }catch(e){S.saved=false}
+ S.step=4;setTimeout(render,900);
+}
+function share(){
+ const p=payload(),t=`Тэгье гэж хэлье 💖 ${p.plan}, ${p.day} ${p.time}. ${p.wish}`;
+ if(navigator.share)navigator.share({text:t}).catch(()=>{});
+ else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>{$('#saved').textContent='Хуулагдлаа! Надад мессежээр явуулаарай 💌'}).catch(()=>{$('#saved').textContent=t})}
+ else $('#saved').textContent=t;
+}
+
+/* confetti */
+function confetti(){
+ const c=$('#cv'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+ const P=Array.from({length:110},()=>({x:innerWidth/2,y:innerHeight*.6,vx:(Math.random()-.5)*14,vy:-Math.random()*16-4,s:12+Math.random()*16,e:['💖','💗','✨','🌹','💕'][Math.random()*5|0]}));
+ let f=0;(function t(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;x.font=p.s+'px serif';x.fillText(p.e,p.x,p.y)});if(++f<130)requestAnimationFrame(t);else x.clearRect(0,0,c.width,c.height)})();
+}
+
+/* owner view */
+(async()=>{
+ try{
+  const u=await claude.use('user');if(!u||!(await u.isOwner()))return;
+  const d=await claude.use('db');if(!d)return;
+  db=d;$('#owner').style.display='block';
+  d.collection('answers').onSnapshot(s=>{
+   const r=s.docs.map(x=>x.data()).sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
+   $('#olist').innerHTML=r.length?r.map(a=>`<div>✅ ${a.answer}<br>${a.plan} · ${a.day} ${a.time}${a.wish?'<br>«'+String(a.wish).replace(/</g,'&lt;')+'»':''}</div>`).join(''):'<div>Одоохондоо хариу алга…</div>';
+  },()=>{$('#olist').textContent=' уншиж чадсангүй'});
+ }catch(e){}
+})();
+render();
+</script>
+</body>
+</html>
